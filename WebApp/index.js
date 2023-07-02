@@ -3,21 +3,21 @@ import category from "./category.js";
 
 let catCont = document.getElementById('cat')
 
-category.forEach( cat =>{
+category.forEach(cat => {
 
     let option = document.createElement('option')
-    option.value = cat  
-    option.textContent = cat  
+    option.value = cat
+    option.textContent = cat
 
     catCont.append(option)
 
-} )
+})
 
 
 let submitBtn = document.getElementById("submitBtn");
 
-submitBtn.onclick = ()=> {
-    
+submitBtn.onclick = () => {
+
     getLocation()
 }
 
@@ -68,10 +68,10 @@ function renderTable(data) {
     const tableHeader = document.getElementById('table-header');
     const tableBody = document.getElementById('table-body');
 
-    tableHeader.innerHTML = "" 
-    tableBody.innerHTML = "" 
+    tableHeader.innerHTML = ""
+    tableBody.innerHTML = ""
 
-    Object.keys(data).map((key, idx) => {
+    Object.keys(data).map((key) => {
 
         if (key == "Latitude" || key == "Longitude") return
 
@@ -135,10 +135,6 @@ function renderTable(data) {
 
 
     })
-
-
-
-
 
 }
 

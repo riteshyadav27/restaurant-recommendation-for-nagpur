@@ -23,6 +23,10 @@ def predict():
     rad = float(request.form.get('rad'))
     cat = request.form.get('cat')
 
+    print(lat)
+    print(lon)
+    print(rad)
+    print(cat)
     
     result = model(lat,lon,rad,cat)
     # result = {'lat':lat,'lon':lon,'rad':rad,'cat':cat}
