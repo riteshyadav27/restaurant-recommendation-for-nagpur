@@ -1,7 +1,7 @@
 from flask import Flask,request,jsonify
 import cloudpickle
 
-model = cloudpickle.load(open('./model.pkl','rb'))
+model = cloudpickle.load(open('model.pkl','rb'))
 
 from flask_cors import CORS, cross_origin
 
