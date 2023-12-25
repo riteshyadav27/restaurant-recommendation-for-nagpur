@@ -32,12 +32,17 @@ function getLocation() {
 }
 
 
+
 function showPosition(position) {
 
     var lat = position.coords.latitude
     var lon = position.coords.longitude
     var rad = document.getElementById("rad").value
     var cat = document.getElementById("cat").value
+    var restroom = document.getElementById("restroom").value
+    var wifi = document.getElementById("wifi").value
+
+
     let result;
 
 
@@ -46,6 +51,8 @@ function showPosition(position) {
     formData.append('lon', lon);
     formData.append('rad', rad);
     formData.append('cat', cat);
+    formData.append('restroom', restroom);
+    formData.append('wifi', wifi);
 
 
     const options = {
@@ -59,7 +66,6 @@ function showPosition(position) {
             console.log(result);
             renderTable(result)
         });
-
 
 }
 
@@ -139,3 +145,14 @@ function renderTable(data) {
 }
 
 
+var rb = document.getElementById("restroom")
+rb.addEventListener("click",()=>{
+    rb.value=rb.value == "0" ? "1" : "0";
+    // console.log(rb.value)
+})
+
+var wb = document.getElementById("wifi")
+wb.addEventListener("click",()=>{
+    wb.value=wb.value == "0" ? "1" : "0";
+    // console.log(wb.value)
+})

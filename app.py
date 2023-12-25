@@ -21,14 +21,18 @@ def predict():
     lat = float(request.form.get('lat'))
     lon = float(request.form.get('lon'))
     rad = float(request.form.get('rad'))
+    restroom = float(request.form.get('restroom'))
+    wifi = float(request.form.get('wifi'))
     cat = request.form.get('cat')
 
     print(lat)
     print(lon)
     print(rad)
     print(cat)
+    print(restroom)
+    print(wifi)
     
-    result = model(lat,lon,rad,cat)
+    result = model(lat,lon,rad,cat,restroom,wifi)
     # result = {'lat':lat,'lon':lon,'rad':rad,'cat':cat}
 
     return jsonify(result)

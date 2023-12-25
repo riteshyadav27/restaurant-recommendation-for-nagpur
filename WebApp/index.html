@@ -15,6 +15,7 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./index.js"></script>
 </head>
 
 <body>
@@ -32,6 +33,12 @@
         <select class=" form-control form-select w-25" id="cat" aria-label="Default select example">
             <option selected>Open this select menu</option>
         </select>
+        
+        <input type="checkbox" name="restroom" id="restroom" value="0" >
+        <label for="restroom" style="font-size: 20px; margin-left: -30px;">Restroom</label><br>
+        
+        <input type="checkbox" name="wifi" id="wifi"  value="0">
+        <label for="wifi" style="font-size: 20px; margin-left: -30px;">Wifi</label><br>
 
         <button class="btn btn-primary" id="submitBtn" >Submit</button>
 
@@ -49,6 +56,6 @@
     </div>
 
 </body>
-<script type="module" src="./index.js"></script>
+
 
 </html>
