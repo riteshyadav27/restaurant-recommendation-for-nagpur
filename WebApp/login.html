@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <section class="container" id="loginpage">
+        <div class="login">
+            <h1 style="margin-bottom: 5px; font-size: 30px;">Welcome Back</h1>
+            <p style="color: rgb(95, 104, 104);margin-top: 2px; margin-bottom: 20px; font-size: 14px;">Please Enter Your
+                Details</p>
+
+            <form id="form" action="#">
+                <label for="email" style="margin-bottom: 2px;">Email <b style="color: red;">*</b></label><br>
+                <input class="input" type="text" id="email1" name="email" placeholder="Enter Your Email"
+                    onkeydown="validation()">
+                <br><br>
+                <span id="text"></span>
+            </form>
+
+
+            <label for=" pwd" style="margin-bottom: 20px;">Password <b style="color: red;">*</b></label><br>
+            <input class="input" type="password" id="pwd1" name="password" placeholder="Enter Password"><br><br>
+
+            <div class="f_pwd">
+                <div class="forget_pwd"><a href="#"><b>Forgot Password</b></a></div>
+            </div>
+
+            <br>
+            <button class="btn" type="submit" id="login" style="background: rgb(28, 26, 26); color: aliceblue; ">Sign
+                in</button>
+
+            <br>
+
+            <button class="btn" style="background-color: white;  display: none;" id="loginbtn"> <img
+                    style="width: 20px; height: 20px; margin-right: 5px;" src="Google__G__Logo.svg.png"
+                    alt="google_logo"> <span>Sign in with Google</span></button>
+
+            <p style="font-size: small; text-align: center; color: rgb(95, 104, 104); margin-top: 20px;">Don't have an
+                account? <a href="signup.html"><b>Sign up</b></a></p>
+        </div>
+
+        <img id="bgimg" src="login.jpg" alt="bg_img">
+    </section>
+</body>
+
+<script src="login.js" type="module"></script>
+
+<script>
+    function validation() {
+    var form = document.getElementById("form")
+    var mail = document.getElementById("email1").value;
+    var text = document.getElementById("text");
+
+    var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (mail.match(pattern)) {
+        form.classList.add("valid");
+        form.classList.remove("invalid");
+        text.innerHTML = "";
+        text.style.color = "#0000CD";
+    }
+    else {
+
+        form.classList.remove("valid");
+        form.classList.add("invalid");
+        text.innerHTML = "please enter vaild email address";
+        text.style.color = "#ff0000";
+    }
+
+    if (mail == "") {
+        form.classList.remove("valid");
+        form.classList.remove("invalid");
+        text.innerHTML = "";
+        text.style.color = "#0000CD";
+    }
+
+};  
+</script>
+</html>

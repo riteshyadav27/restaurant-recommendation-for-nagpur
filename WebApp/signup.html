@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+
+<body>
+    <div class="main">
+
+        <section class="container">
+            <img src="signup.jpg" alt="Signup Image">
+            <div class="signup">
+                <h1 style="margin-bottom: 10px; margin-top: -5px; font-size: 30px;">Sign Up</h1>
+                <p style="color: rgb(95, 104, 104);margin-top: 2px; margin-bottom: 20px; font-size: 14px;">Please Enter
+                    Your Details</p>
+
+                <label for="name" style="margin-bottom: 2px;">Name <b style="color: red;">*</b></label><br>
+                <input class="input" type="text" id="name" name="name" placeholder="Enter Your Name"><br><br>
+
+                <form id="form" action="#">
+                    <label for="email" style="margin-bottom: 2px;">Email <b style="color: red;">*</b></label><br>
+                    <input class="input" type="text" id="email" name="email" placeholder="Enter Your Email"
+                        onkeydown="validation()"><br><br>
+                    <span id="text"></span>
+                </form>
+
+                <label for=" pwd" style="margin-bottom: 20px;">Password <b style="color: red;">*</b></label><br>
+                <input class="input" type="password" id="pwd" name="password" placeholder="Enter Password"><br><br>
+
+                <label for=" pwd" style="margin-bottom: 20px;">Confirm Password <b style="color: red;">*</b></label><br>
+                <input class="input" type="password" id="cnf-pwd" name="password"
+                    placeholder="Confirm Password"><br><br>
+
+                <br>
+                <button class="btn" id="signup" style="background: rgb(28, 26, 26); color: aliceblue; ">Sign
+                    Up</button><br>
+
+                <button class="btn" style="background-color: white;  display: none; " id="loginbtn" > <img
+                        style="width: 20px; height: 20px; margin-right: 5px;" src="Google__G__Logo.svg.png"
+                        alt="google_logo"> <span>Sign Up with Google</span></button>
+
+                <p style="font-size: medium; text-align: center; color: rgb(95, 104, 104); margin-top: 20px;">Already
+                    has an Account ? <a href="login.html"><b>Log In</b></a></p>
+
+            </div>
+
+        </section>
+    </div>
+</body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+    import { getDatabase, set, ref, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyAGGM_npD2mFT08G1FHs2ZCmh0JLQ-NLYU",
+        authDomain: "treasure-hunt-9a3a1.firebaseapp.com",
+        projectId: "treasure-hunt-9a3a1",
+        storageBucket: "treasure-hunt-9a3a1.appspot.com",
+        messagingSenderId: "965170673320",
+        appId: "1:965170673320:web:b12554bf2e5400045b349d",
+        measurementId: "G-VGXTVGWNC6"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+    const db = getDatabase();
+
+    document.getElementById("signup").addEventListener("click", () => {
+
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var pwd = document.getElementById("pwd").value;
+        var cnfpwd = document.getElementById("cnf-pwd").value;
+
+
+        if (name === "" || email === "" || pwd === "" || cnfpwd === "") {
+            alert("Please Fill all necesssary Details");
+        }
+        else {
+            if (pwd == cnfpwd) {
+
+                var file = email.replaceAll(".","");
+
+                set(ref(db, 'Users/' + file), {
+                    name,
+                    email,
+                    pwd,
+
+                }).then(() => {
+                    alert("Sign Up Successfull !!");
+                }).catch((e) => {
+                    alert(e)
+                })
+                // For new registration
+                createUserWithEmailAndPassword(auth, email, pwd)
+                    .then((userCredential) => {
+
+
+                        window.location.href = "login.html";
+
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.log(errorMessage);
+                        alert(error);
+                    });
+
+            }
+            else {
+                alert("Password don't match...Please Try Again")
+            }
+        }
+    })
+
+
+
+
+    // const provider = new GoogleAuthProvider(app);
+
+    // loginbtn.addEventListener('click', (e) => {
+
+    //     const auth = getAuth();
+    //     signInWithPopup(auth, provider)
+    //         .then((result) => {
+    //             // This gives you a Google Access Token. You can use it to access the Google API.
+    //             const credential = GoogleAuthProvider.credentialFromResult(result);
+    //             const token = credential.accessToken;
+    //             // The signed-in user info.
+    //             const user = result.user;
+
+    //             const name = result.user.displayName;
+    //             var email = result.user.email;
+    //             var pwd = 0;
+    //             var round = 0;
+    //             var time = 0;
+    //             var attempt = 0;
+                
+    //             console.log(name);
+    //             console.log(email);
+    //             console.log(pwd);
+    //             console.log(round);
+    //             console.log(time);
+    //             console.log(attempt);
+
+    //             set(ref(db, 'Users/' + name), {
+    //                 name,
+    //                 email,
+    //                 pwd,
+    //                 round,
+    //                 time,
+    //                 attempt,
+
+    //             })
+
+    //             alert(name + ' Login Successfully')
+    //             window.location.href = "../HTML/getstarted.html";
+
+    //             // ...
+    //         }).catch((error) => {
+    //             // Handle Errors here.
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             // The email of the user's account used.
+    //             const email = error.customData.email;
+    //             // The AuthCredential type that was used.
+    //             const credential = GoogleAuthProvider.credentialFromError(error);
+    //             // ...
+    //         });
+    // })
+</script>
+
+
+
+<script>
+
+    function validation() {
+        var form = document.getElementById("form")
+        var mail = document.getElementById("email").value;
+
+
+        var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (mail.match(pattern)) {
+            form.classList.add("valid");
+            form.classList.remove("invalid");
+            text.innerHTML = "";
+            text.style.color = "#0000CD";
+        }
+        else {
+
+            form.classList.remove("valid");
+            form.classList.add("invalid");
+            text.innerHTML = "Please enter vaild email address";
+            text.style.color = "#ff0000";
+        }
+
+        if (mail == "") {
+            form.classList.remove("valid");
+            form.classList.remove("invalid");
+            text.innerHTML = "";
+            text.style.color = "#0000CD";
+        }
+
+    };
+
+
+</script>
+
+</html>
